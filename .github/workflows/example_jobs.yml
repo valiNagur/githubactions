@@ -1,0 +1,17 @@
+name: Example Jobs
+on: workflow_dispatch
+jobs:
+    job1:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Step
+              uses: actions/checkout@v4
+            - name: Execution Step
+              run: env | sort
+    job2:    
+        runs-on: windows-latest
+        steps:
+            - name: Checkout Step
+              uses: actions/checkout@v4
+            - name: Execution Step
+              run: "Get-ChildItem Env: | Sort-Object Name"
