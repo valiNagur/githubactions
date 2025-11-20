@@ -1,0 +1,46 @@
+name: Multi Job
+on: [push]
+jobs:
+    ubuntu:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+            - name: Set up Google Go
+              uses: actions/setup@v5.5
+            - name: Running Script with ubuntu
+              run: go build -o main main.go && ./main
+    
+    macos:
+        runs-on: macos-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+            - name: Set up Google Go
+              uses: actions/setup@v5.5
+            - name: Running Script with macos
+              run: go build -o main main.go && ./main
+    windows:
+        runs-on: windows-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+            - name: Set up Google Go
+              uses: actions/setup@v5.5
+            - name: Running Script with windows
+              run: go build -o main.exe main.go && ./main.exe
+    compiled:
+        needs: [ubuntu, macos, windows]
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+            - name: Set up Google Go
+              uses: actions/setup@v5.5
+            - name: Running Script with ubuntu
+              run: |
+                echo "Cross compiling for all platforms:"
+                GOOS=linux GOARCH=amd64 go build -o main-linux main.go
+                GOOS=windows GOARCH=amd64 go build -o main-windows.exe main.go
+                GOOS=darwin GOARCH=amd64 go build -o main-macos-intel main.go
+            
