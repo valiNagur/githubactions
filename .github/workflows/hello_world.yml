@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
-        run: actions/checkout@v3
+        uses: actions/checkout@v3
       - name: Make it Executable
         run: chmod +x ./world.sh
       - name: Run Hello World
